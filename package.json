@@ -1,0 +1,22 @@
+{
+  "name": "petshop-frontend",
+  "version": "1.0.0",
+  "description": "Frontend do projeto de TCC PUC MINAS PETSHOP",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sandroBraga/petshop-frontend.git"
+  },
+  "keywords": [
+    "frontend;petshop"
+  ],
+  "author": "Sandro Braga",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sandroBraga/petshop-frontend/issues"
+  },
+  "homepage": "https://github.com/sandroBraga/petshop-frontend#readme"
+}
