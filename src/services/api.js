@@ -13,4 +13,4 @@ api.interceptors.request.use(async config => {
   return config;
 })
 
-export api;
+export default api;
