@@ -15,12 +15,16 @@ class SignUp extends Component {
   handleSignUp = async e => {
     e.preventDefault();
     const { username, email, password } = this.state;
-    try {
-      await api.post("/login", { email, password });
-      this.props.history.push("/");
-    } catch (err) {
-      console.log(err);
-      this.setState({error: 'opa'});
+    if (!username || !email || !password) {
+      this.setState({ error: "Preencha todos os dados para se cadastrar" });
+    } else {
+      try {
+        await api.post("/users", { email, password });
+        this.props.history.push("/");
+      } catch (err) {
+        console.log(err);
+        this.setState({error: 'opa'});
+      }
     }
   };
 
