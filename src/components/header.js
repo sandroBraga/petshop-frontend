@@ -1,0 +1,14 @@
+import React, { Component } from "react";
+import Menu, {SubMenu, MenuItem} from 'rc-menu';
+
+class Header extends Component {
+  render() {
+    return(
+    <Menu>
+      <MenuItem>Clientes</MenuItem>
+      <MenuItem>Pets</MenuItem>
+    </Menu>
+  )}
+}
+
+export default Header;
