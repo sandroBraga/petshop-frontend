@@ -1,35 +1,38 @@
 import React, { Component } from 'react';
 import {Input, Label, Form, Button} from '../../components/form';
 import {Table,Tr,} from 'styled-table-component';
+import * as clienteService from '../../services/cliente';
 
+const NOVO_CLIENTE = {
+  nome: '',
+  identidade: '',
+  cpf: '',
+  email: '',
+  senha: '',
+  id_perfil: 1,
+  id_endereco: 1,
+}
 
 export default class Clientes extends Component {
-
-  constructor(){
+  constructor() {
     super()
     this.state = {
-      cliente : {
-        nome: '',
-        rg: '',
-        cpf: '',
-        email: ''
-      },
-      clientes : []
+      cliente : NOVO_CLIENTE,
+      clientes : [],
+      error: ''
     }
   }
 
-  // componentDidMount(){
-  //   servico.getClientes()
-  //   .then((clientes) => this.setState({clientes: clientes}));
-  // }
+  componentDidMount() {
+    clienteService.buscarClientes()
+    .then((clientes) => this.setState({clientes: clientes})
+    ).catch(err => {
+      this.setState({error: JSON.stringify(err)});
+    });
+  }
 
   handleInputChange = (e) => {
-    // if(!e.target.value){
-    //   return;
-    // }
-
     const {name, value} = e.target
-
     this.setState({
       cliente: {
         ...this.state.cliente,
@@ -40,19 +43,37 @@ export default class Clientes extends Component {
 
   gravar = () => {
     let {clientes, cliente} = this.state;
-    clientes.push(cliente);
-    this.setState({
-      clientes : clientes
-    });
+    clienteService.gravarClientes(cliente)
+      .then(() => {
+        if(cliente.id) {
+          clientes = clientes.map(c => {
+            if(cliente.id === c.id) {
+              return cliente;
+            }
+            return c;
+          });
+        } else {
+          clientes.push(cliente);
+        }
+        this.setState({
+          clientes: clientes,
+          cliente: NOVO_CLIENTE
+        });
+      }).catch(err => {
+        console.error('Error ', err);
+        this.setState({cliente: NOVO_CLIENTE, error: JSON.stringify(err)});
+      });
+  }
 
-
-    console.log(this.state.cliente);
+  editar = (c) => {
+    this.setState({cliente: c});
   }
 
   render() {
-    let { cliente, clientes } = this.state;
+    let { cliente, clientes, error } = this.state;
     return (
         <div>
+        <div> { error } </div>
           <Form>
             <div>
               <Label>Nome:</Label>
@@ -60,7 +81,7 @@ export default class Clientes extends Component {
             </div>
             <div>
               <Label>RG:</Label>
-              <Input type="text" name="rg" onChange={this.handleInputChange} value={cliente.rg} />
+              <Input type="text" name="identidade" onChange={this.handleInputChange} value={cliente.identidade} />
             </div>
             <div>
               <Label>CPF:</Label>
@@ -76,19 +97,23 @@ export default class Clientes extends Component {
           <div>
             <Table>
               <thead>
-                <th scope="col">nome</th>
-                <th scope="col">rg</th>
-                <th scope="col">cpf</th>
-                <th scope="col">email</th>
+                <tr>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Identidade</th>
+                  <th scope="col">CPF</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Editar</th>
+                </tr>
               </thead>
               <tbody>
               {clientes.map((c) => {
                 return(
-                  <Tr active key={c.cpf}>
+                  <Tr active key={c.id}>
                     <td>{c.nome}</td>
-                    <td>{c.rg}</td>
+                    <td>{c.identidade}</td>
                     <td>{c.cpf}</td>
                     <td>{c.email}</td>
+                    <td><Button onClick={() => this.editar(c)}>Editar</Button></td>
                   </Tr>
                 )
               })}
