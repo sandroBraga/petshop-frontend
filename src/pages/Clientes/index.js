@@ -69,6 +69,17 @@ export default class Clientes extends Component {
     this.setState({cliente: c});
   }
 
+  excluir = (cliente) => {
+    let {clientes} = this.state;
+    clienteService.excluirClientes(cliente)
+      .then(() => {
+        this.setState({clientes: clientes.filter(c => cliente.id !== c.id)});
+      }).catch(err => {
+        console.error('Error ', err);
+        this.setState({error: JSON.stringify(err)});
+      })
+  }
+
   render() {
     let { cliente, clientes, error } = this.state;
     return (
@@ -103,6 +114,7 @@ export default class Clientes extends Component {
                   <th scope="col">CPF</th>
                   <th scope="col">Email</th>
                   <th scope="col">Editar</th>
+                  <th scope="col">Excluir</th>
                 </tr>
               </thead>
               <tbody>
@@ -114,6 +126,7 @@ export default class Clientes extends Component {
                     <td>{c.cpf}</td>
                     <td>{c.email}</td>
                     <td><Button onClick={() => this.editar(c)}>Editar</Button></td>
+                    <td><Button onClick={() => this.excluir(c)}>Excluir</Button></td>
                   </Tr>
                 )
               })}

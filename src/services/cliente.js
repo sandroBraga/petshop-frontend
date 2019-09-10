@@ -10,3 +10,7 @@ export function gravarClientes(cliente) {
   }
   return api.post("/clientes", cliente);
 }
+
+export function excluirClientes(cliente) {
+  return api.delete(`/clientes/${cliente.id}`);
+}
