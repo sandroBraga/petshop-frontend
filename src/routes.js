@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Switch, Redirect, NavLink, HashRouter } from "react-router-dom";
-import { isAuthenticated } from "./services/auth";
+import { isAuthenticated, isAdmin } from "./services/auth";
 import styled from "styled-components";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
@@ -24,7 +24,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 const Routes = () => (
   <div>
   {
-    isAuthenticated()
+    !isAuthenticated()
     ? (
       <BrowserRouter>
         <Switch>
@@ -41,11 +41,13 @@ const Routes = () => (
             <li><NavLink to="/">Home</NavLink></li>
             <li><NavLink to="/clientes">Clientes</NavLink></li>
             <li><NavLink to="/servicos">Serviços</NavLink></li>
+            { isAdmin() &&<li><NavLink to="/relatorio-servicos">Relatorio Serviços</NavLink></li> }
           </ul>
           <div className="content">
             <Route exact path="/" component={() => <div>OK</div>} />
             <Route exact path="/clientes" component={Clientes} />
             <Route exact path="/servicos" component={() => <div>Serviços</div>} />
+           <Route exact path="/relatorio-servicos" component={() => <div>Relatorio Serviços</div>} />
           </div>
         </div>
       </HashRouter>

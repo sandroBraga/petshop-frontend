@@ -21,9 +21,9 @@ class SignIn extends Component {
     } else {
       try {
         const response = await api.post("/login", { email, senha });
-        console.log('response ', response.data[0]);
+        localStorage.setItem('usuario_logado', JSON.stringify(response.data[0]));
         login(response.data.token);
-        this.props.history.push("/app");
+        window.location.reload();
       } catch (err) {
         this.setState({error:"Houve um problema com o login, verifique suas credenciais. T.T"});
       }
