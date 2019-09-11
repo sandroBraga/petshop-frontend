@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import Logo from "../../assets/petshop-icon.png";
 import api from "../../services/api";
 import { login } from "../../services/auth";
@@ -35,7 +35,7 @@ class SignIn extends Component {
       <Container>
         <Form onSubmit={this.handleSignIn}>
           <hr />
-          <img src={Logo} alt="Airbnb logo" />
+          <img src={Logo} alt="Petshop logo" />
           {this.state.error && <p>{this.state.error}</p>}
           <input type="email" placeholder="Endereço de e-mail" onChange={e => this.setState({ email: e.target.value })} />
           <input type="password" placeholder="Senha" onChange={e => this.setState({ senha: e.target.value })} />

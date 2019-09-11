@@ -105,6 +105,8 @@ export default class Clientes extends Component {
 
             <Button onClick={this.gravar} >Salvar</Button>
           </Form>
+          <br />
+          <hr />
           <div>
             <Table>
               <thead>

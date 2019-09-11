@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Menu, {SubMenu, MenuItem} from 'rc-menu';
+import Menu, { MenuItem } from 'rc-menu';
 
 class Header extends Component {
   render() {
