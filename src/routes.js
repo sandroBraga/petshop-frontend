@@ -4,6 +4,7 @@ import { isAuthenticated, isAdmin, isAtendente } from "./services/auth";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import Clientes from "./pages/Clientes";
+import Produtos from "./pages/Produtos";
 import Servicos from "./pages/Relatorios/Servicos";
 
 import  "./styles/menu.module.css"
@@ -44,7 +45,7 @@ const Routes = () => (
           <div className="content">
             <Route exact path="/" component={() => <div>OK</div>} />
             <Route exact path="/clientes" component={Clientes} />
-            <Route exact path="/servicos" component={() => <div>Serviços</div>} />
+            <Route exact path="/produtos" component={Produtos} />
             <Route exact path="/relatorio-servicos" component={Servicos} />
           </div>
         </div>
