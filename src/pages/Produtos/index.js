@@ -24,7 +24,7 @@ export default class Produtos extends Component {
 
   componentDidMount() {
     produtoService.buscarProdutos()
-    .then((produtos) => this.setState({produtos: produtos})
+    .then((produtos) => this.setState({produtos: produtos, produtosBkp: produtos})
     ).catch(err => {
       this.setState({error: JSON.stringify(err)});
     });
@@ -41,14 +41,14 @@ export default class Produtos extends Component {
   }
 
   procurarProduto = (e) => {
-    let { produtos } = this.state;
-    let produto = e.target.value;
-
-    console.log('produto ', produto);
-
-    produtos = produtos.filter(p => p.nome.includes(produto));
-
-    console.log('produtos ', produtos);
+    let produtosFiltrados = [];
+    const { produtos } = this.state;
+    if(e.target.value !== "") {
+      produtosFiltrados = produtos.filter(p => p.nome.includes(e.target.value));
+    } else {
+      produtosFiltrados = this.state.produtosBkp;
+    }
+    this.setState({produtos: produtosFiltrados});
   }
 
   gravar = () => {
