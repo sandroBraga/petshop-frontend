@@ -41,6 +41,7 @@ const Routes = () => (
             { isAtendente() && <li><NavLink to="/clientes">Clientes</NavLink></li> }
             { isAdmin() && <li><NavLink to="/produtos">Produtos</NavLink></li> }
             { isAdmin() && <li><NavLink to="/relatorio-servicos">Relatorio Serviços</NavLink></li> }
+            <li><NavLink to="/sair">Sair</NavLink></li>
           </ul>
           <div className="content">
             <Route exact path="/" component={() => <div>OK</div>} />

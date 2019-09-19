@@ -9,8 +9,6 @@ const NOVO_CLIENTE = {
   cpf: '',
   email: '',
   senha: '',
-  id_perfil: 1,
-  id_endereco: 1,
 }
 
 export default class Clientes extends Component {
@@ -25,7 +23,7 @@ export default class Clientes extends Component {
 
   componentDidMount() {
     clienteService.buscarClientes()
-    .then((clientes) => this.setState({clientes: clientes})
+    .then((clientes) => this.setState({clientes: clientes, clientesOriginais: clientes})
     ).catch(err => {
       this.setState({error: JSON.stringify(err)});
     });
@@ -39,6 +37,19 @@ export default class Clientes extends Component {
         [name]: value
       }
     });
+  }
+
+  procurarClientes = (e) => {
+    console.log('eventos ', e.target.value);
+    let clientesFiltrados = [];
+    const { clientes } = this.state;
+    console.log('clientes ', clientes);
+    if(e.target.value !== "") {
+      clientesFiltrados = clientes.filter(c => c.nome.includes(e.target.value));
+    } else {
+      clientesFiltrados = this.state.clientesOriginais;
+    }
+    this.setState({clientes: clientesFiltrados});
   }
 
   gravar = () => {
@@ -92,21 +103,54 @@ export default class Clientes extends Component {
             </div>
             <div>
               <Label>RG:</Label>
-              <Input type="text" name="identidade" onChange={this.handleInputChange} value={cliente.identidade} />
+              <Input type="text" name="identidade" maxLength="14" onChange={this.handleInputChange} value={cliente.identidade} />
             </div>
             <div>
               <Label>CPF:</Label>
-              <Input type="text" name="cpf" onChange={this.handleInputChange} value={cliente.cpf} />
+              <Input type="text" name="cpf" maxLength="12" placeholder="Ex.: 000.000.000-00" onChange={this.handleInputChange} value={cliente.cpf} />
             </div>
             <div>
               <Label>Email:</Label>
-              <Input type="email"name="email" onChange={this.handleInputChange} value={cliente.email} />
+              <Input type="email" name="email" onChange={this.handleInputChange} value={cliente.email} />
+            </div>
+            <div>
+              <Label>Saldo Pataz:</Label>
+              <Input type="number" name="saldo_pataz" onChange={this.handleInputChange} value={cliente.saldo_pataz} />
+            </div>
+            <div>
+              <Label>Rua:</Label>
+              <Input type="text"name="rua" onChange={this.handleInputChange} value={cliente.rua} />
+            </div>
+            <div>
+              <Label>Numero:</Label>
+              <Input type="number"name="numero" onChange={this.handleInputChange} value={cliente.numero} />
+            </div>
+            <div>
+              <Label>CEP:</Label>
+              <Input type="text"name="cep" onChange={this.handleInputChange} value={cliente.cep} />
+            </div>
+            <div>
+              <Label>Bairro:</Label>
+              <Input type="text"name="bairro" onChange={this.handleInputChange} value={cliente.bairro} />
+            </div>
+            <div>
+              <Label>UF:</Label>
+              <Input type="text"name="uf" maxLength="2" onChange={this.handleInputChange} value={cliente.uf} />
+            </div>
+            <div>
+              <Label>Cidade:</Label>
+              <Input type="text"name="cidade" onChange={this.handleInputChange} value={cliente.cidade} />
             </div>
 
             <Button onClick={this.gravar} >Salvar</Button>
           </Form>
           <br />
           <hr />
+          <div>
+            <Label>Pesquisar:</Label>
+            <Input type="text" name="clienteFinder" onChange={this.procurarClientes} placeholder="Nome do Cliente"/>
+            <hr />
+          </div>
           <div>
             <Table>
               <thead>
@@ -115,6 +159,13 @@ export default class Clientes extends Component {
                   <th scope="col">Identidade</th>
                   <th scope="col">CPF</th>
                   <th scope="col">Email</th>
+                  <th scope="col">Saldo Pataz</th>
+                  <th scope="col">Rua</th>
+                  <th scope="col">Numero</th>
+                  <th scope="col">CEP</th>
+                  <th scope="col">Bairro</th>
+                  <th scope="col">UF</th>
+                  <th scope="col">Cidade</th>
                   <th scope="col">Editar</th>
                   <th scope="col">Excluir</th>
                 </tr>
@@ -127,6 +178,13 @@ export default class Clientes extends Component {
                     <td>{c.identidade}</td>
                     <td>{c.cpf}</td>
                     <td>{c.email}</td>
+                    <td>{c.saldo_pataz}</td>
+                    <td>{c.rua}</td>
+                    <td>{c.numero}</td>
+                    <td>{c.cep}</td>
+                    <td>{c.bairro}</td>
+                    <td>{c.uf}</td>
+                    <td>{c.cidade}</td>
                     <td><Button onClick={() => this.editar(c)}>Editar</Button></td>
                     <td><Button onClick={() => this.excluir(c)}>Excluir</Button></td>
                   </Tr>
