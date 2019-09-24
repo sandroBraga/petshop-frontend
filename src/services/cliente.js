@@ -8,6 +8,7 @@ export function gravarClientes(cliente) {
   if(cliente.id) {
       return api.put("/clientes", cliente);
   }
+  console.log('cliente ', cliente)
   return api.post("/clientes", cliente);
 }
 

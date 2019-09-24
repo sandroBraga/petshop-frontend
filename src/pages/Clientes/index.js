@@ -40,10 +40,8 @@ export default class Clientes extends Component {
   }
 
   procurarClientes = (e) => {
-    console.log('eventos ', e.target.value);
     let clientesFiltrados = [];
     const { clientes } = this.state;
-    console.log('clientes ', clientes);
     if(e.target.value !== "") {
       clientesFiltrados = clientes.filter(c => c.nome.includes(e.target.value));
     } else {
@@ -54,6 +52,7 @@ export default class Clientes extends Component {
 
   gravar = () => {
     let {clientes, cliente} = this.state;
+    console.log('cliente ', cliente);
     clienteService.gravarClientes(cliente)
       .then(() => {
         if(cliente.id) {
@@ -114,6 +113,10 @@ export default class Clientes extends Component {
               <Input type="email" name="email" onChange={this.handleInputChange} value={cliente.email} />
             </div>
             <div>
+              <Label>Senha:</Label>
+              <Input type="text" name="senha" onChange={this.handleInputChange} value={cliente.senha} />
+            </div>
+            <div>
               <Label>Saldo Pataz:</Label>
               <Input type="number" name="saldo_pataz" onChange={this.handleInputChange} value={cliente.saldo_pataz} />
             </div>
@@ -159,6 +162,7 @@ export default class Clientes extends Component {
                   <th scope="col">Identidade</th>
                   <th scope="col">CPF</th>
                   <th scope="col">Email</th>
+                  <th scope="col">Senha</th>
                   <th scope="col">Saldo Pataz</th>
                   <th scope="col">Rua</th>
                   <th scope="col">Numero</th>
@@ -178,6 +182,7 @@ export default class Clientes extends Component {
                     <td>{c.identidade}</td>
                     <td>{c.cpf}</td>
                     <td>{c.email}</td>
+                    <td>{c.senha}</td>
                     <td>{c.saldo_pataz}</td>
                     <td>{c.rua}</td>
                     <td>{c.numero}</td>
