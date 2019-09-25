@@ -117,10 +117,6 @@ export default class Clientes extends Component {
               <Input type="text" name="senha" onChange={this.handleInputChange} value={cliente.senha} />
             </div>
             <div>
-              <Label>Saldo Pataz:</Label>
-              <Input type="number" name="saldo_pataz" onChange={this.handleInputChange} value={cliente.saldo_pataz} />
-            </div>
-            <div>
               <Label>Rua:</Label>
               <Input type="text"name="rua" onChange={this.handleInputChange} value={cliente.rua} />
             </div>
@@ -162,8 +158,6 @@ export default class Clientes extends Component {
                   <th scope="col">Identidade</th>
                   <th scope="col">CPF</th>
                   <th scope="col">Email</th>
-                  <th scope="col">Senha</th>
-                  <th scope="col">Saldo Pataz</th>
                   <th scope="col">Rua</th>
                   <th scope="col">Numero</th>
                   <th scope="col">CEP</th>
@@ -182,8 +176,6 @@ export default class Clientes extends Component {
                     <td>{c.identidade}</td>
                     <td>{c.cpf}</td>
                     <td>{c.email}</td>
-                    <td>{c.senha}</td>
-                    <td>{c.saldo_pataz}</td>
                     <td>{c.rua}</td>
                     <td>{c.numero}</td>
                     <td>{c.cep}</td>
