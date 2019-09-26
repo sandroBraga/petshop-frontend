@@ -136,7 +136,7 @@ export default class Produtos extends Component {
                 <tr>
                   <th scope="col">Nome</th>
                   <th scope="col">Fabricante</th>
-                  <th scope="col">Qtde Estoque</th>
+                  <th scope="col">Quantidade Estoque</th>
                   <th scope="col">Especificações</th>
                   <th scope="col">Valor Real</th>
                   <th scope="col">Valor Pataz</th>

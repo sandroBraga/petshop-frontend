@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {Input, Label, Form, Button} from '../../../components/form';
 import {Table,Tr,} from 'styled-table-component';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const SERVICOS_MOCK = [{
   	"idEvento": 1,
@@ -9,7 +11,7 @@ const SERVICOS_MOCK = [{
   		"nome": "toto"
   	},
     "cliente": {
-      "nome": "Braia"
+      "nome": "Cliente 1"
     },
   	"responsavel": {
   		"perfil": "Atendente",
@@ -19,30 +21,30 @@ const SERVICOS_MOCK = [{
   	"servico": {
   		"descricao": "Tosa"
   	},
-  	"horaEvento": "new Date()",
+  	"horaEvento": '22/10/2019',
   	"valor": 100.00,
   	"presenca": "SIM",
-  	"notaServico": 3
+  	"notaServico": 5
   }, {
   	"idEvento": 2,
   	"pet": {
-  		"id": 1,
-  		"nome": "toto"
+  		"id": 2,
+  		"nome": "lili"
   	},
     "cliente": {
-      "nome": "Braia"
+      "nome": "Cliente 2"
     },
   	"responsavel": {
-  		"perfil": "",
-  		"nome": ""
+  		"perfil": "Veterinario",
+  		"nome": "Adilson"
   	},
-  	"formaPagamento": 1,
+  	"formaPagamento": "Cartão de Crédito",
   	"servico": {
-  		"descricao": ""
+  		"descricao": "Banho"
   	},
-  	"horaEvento": "new Date()",
-  	"valor": 100.00,
-  	"presenca": true,
+  	"horaEvento": '20/09/2019',
+  	"valor": 50.00,
+  	"presenca": "SIM",
   	"notaServico": 3
   }]
 
@@ -51,24 +53,32 @@ export default class Servicos extends Component {
     super()
     this.state = {
       servicos: SERVICOS_MOCK,
-      error: ''
+      error: '',
+      startDate: new Date()
     }
   }
 
-  handleInputChange = (e) => {
-    /*const {name, value} = e.target
+  handleChange = date => {
     this.setState({
-      cliente: {
-        ...this.state.cliente,
-        [name]: value
-      }
-    });*/
-  }
+      startDate: date
+    });
+    let data = date.toLocaleDateString();
+    console.log('date ', data);
+    Object.keys(SERVICOS_MOCK).sort.forEach(function(horaEvento) {
+      
+    });
+  };
 
   render() {
-    let { servicos, error } = this.state;
+    let { servicos, error, startDate } = this.state;
     return (
         <div>
+        <span>Selecione um mês:</span>
+        <DatePicker
+          selected={startDate}
+          onChange={this.handleChange}
+          dateFormat="d/MM/yyyy"
+        />
         <div> { error } </div>
           <div>
             <Table>

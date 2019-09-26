@@ -9,6 +9,12 @@ const NOVO_CLIENTE = {
   cpf: '',
   email: '',
   senha: '',
+  rua: '',
+  numero: '',
+  cep: '',
+  bairro: '',
+  uf: '',
+  cidade: ''
 }
 
 export default class Clientes extends Component {
@@ -110,7 +116,7 @@ export default class Clientes extends Component {
             </div>
             <div>
               <Label>Email:</Label>
-              <Input type="email" name="email" onChange={this.handleInputChange} value={cliente.email} />
+              <Input type="email" name="email" placeholder="exemplo@email.com" onChange={this.handleInputChange} value={cliente.email} />
             </div>
             <div>
               <Label>Senha:</Label>
@@ -126,7 +132,7 @@ export default class Clientes extends Component {
             </div>
             <div>
               <Label>CEP:</Label>
-              <Input type="text"name="cep" onChange={this.handleInputChange} value={cliente.cep} />
+              <Input type="text"name="cep" placeholder="00000-000" onChange={this.handleInputChange} value={cliente.cep} />
             </div>
             <div>
               <Label>Bairro:</Label>
@@ -146,6 +152,7 @@ export default class Clientes extends Component {
           <br />
           <hr />
           <div>
+            <br />
             <Label>Pesquisar:</Label>
             <Input type="text" name="clienteFinder" onChange={this.procurarClientes} placeholder="Nome do Cliente"/>
             <hr />
