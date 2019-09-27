@@ -36,6 +36,27 @@ const SERVICOS_MOCK = [{
     },
   	"responsavel": {
   		"perfil": "Veterinario",
+  		"nome": "Edmilson"
+  	},
+  	"formaPagamento": "Cartão de Crédito",
+  	"servico": {
+  		"descricao": "Banho"
+  	},
+  	"horaEvento": '20/09/2019',
+  	"valor": 50.00,
+  	"presenca": "SIM",
+  	"notaServico": 3
+  }, {
+  	"idEvento": 3,
+  	"pet": {
+  		"id": 2,
+  		"nome": "lili"
+  	},
+    "cliente": {
+      "nome": "Cliente 2"
+    },
+  	"responsavel": {
+  		"perfil": "Veterinario",
   		"nome": "Adilson"
   	},
   	"formaPagamento": "Cartão de Crédito",
@@ -46,28 +67,36 @@ const SERVICOS_MOCK = [{
   	"valor": 50.00,
   	"presenca": "SIM",
   	"notaServico": 3
-  }]
+  }
+]
 
 export default class Servicos extends Component {
   constructor() {
     super()
     this.state = {
-      servicos: SERVICOS_MOCK,
+      servicos: this.filterServicos(new Date()),
       error: '',
       startDate: new Date()
     }
   }
 
+  filterServicos = (date) => {
+    return SERVICOS_MOCK.filter(s => {
+      const datePart = s.horaEvento.split('/');
+      const dataEvento = new Date(datePart[2],datePart[1]-1,datePart[0]);
+      return dataEvento >= new Date( date.getYear()+1900, date.getMonth(),1) && dataEvento <= date
+    }).sort((a,b) => a.responsavel.nome < b.responsavel.nome?-1:1);
+  }
+
   handleChange = date => {
-    this.setState({
-      startDate: date
-    });
+
     let data = date.toLocaleDateString();
     console.log('date ', data);
-    Object.keys(SERVICOS_MOCK).sort.forEach(function(horaEvento) {
-      
+    this.setState({
+      startDate: date,
+      servicos: this.filterServicos(date)
     });
-  };
+  }
 
   render() {
     let { servicos, error, startDate } = this.state;

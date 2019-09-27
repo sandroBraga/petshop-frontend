@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Switch, Redirect, NavLink, HashRouter } from "react-router-dom";
-import { isAuthenticated, isAdmin, isAtendente } from "./services/auth";
+import { isAuthenticated, isAdmin, isAtendente, logout } from "./services/auth";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import Clientes from "./pages/Clientes";
@@ -41,7 +41,7 @@ const Routes = () => (
             { isAtendente() && <li><NavLink to="/clientes">Clientes</NavLink></li> }
             { isAdmin() && <li><NavLink to="/produtos">Produtos</NavLink></li> }
             { isAdmin() && <li><NavLink to="/relatorio-servicos">Relatorio Serviços</NavLink></li> }
-            <li><NavLink to="/sair">Sair</NavLink></li>
+            <li><a href="/" onClick={()=>logout()}>Sair</a></li>
           </ul>
           <div className="content">
             <Route exact path="/" component={() => <div>OK</div>} />
