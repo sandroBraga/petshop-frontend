@@ -58,7 +58,10 @@ export default class Clientes extends Component {
 
   gravar = () => {
     let {clientes, cliente} = this.state;
-    console.log('cliente ', cliente);
+    if (cliente.nome === "" || cliente.identidade === "" || cliente.cpf === "" || cliente.email === "" || cliente.senha === "" || cliente.rua === "" || cliente.numero === "" || cliente.cep === "" || cliente.bairro === "" || cliente.uf === "" || cliente.cidade === "") {
+      this.setState({error: "Todos os campos são obrigatórios"});
+      return;
+    }
     clienteService.gravarClientes(cliente)
       .then(() => {
         if(cliente.id) {
@@ -101,6 +104,8 @@ export default class Clientes extends Component {
     return (
         <div>
         <div> { error } </div>
+        <br />
+        <hr />
           <Form>
             <div>
               <Label>Nome:</Label>

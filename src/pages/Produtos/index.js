@@ -53,6 +53,10 @@ export default class Produtos extends Component {
 
   gravar = () => {
     let {produtos, produto} = this.state;
+    if(produto.nome === "" || produto.fabricante === "" || produto.qtde_estoque === "" || produto.especificacoes === "" || produto.valor_real === "" || produto.valor_pataz === "") {
+      this.setState({error: "Todos os campos são obrigatórios"});
+      return;
+    }
     produtoService.gravarProdutos(produto)
       .then(() => {
         if(produto.id) {
@@ -95,6 +99,8 @@ export default class Produtos extends Component {
     return (
         <div>
         <div> { error } </div>
+        <br />
+        <hr />
           <Form>
             <div>
               <Label>Nome:</Label>

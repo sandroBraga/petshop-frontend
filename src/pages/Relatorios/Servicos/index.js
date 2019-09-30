@@ -91,7 +91,6 @@ export default class Servicos extends Component {
   handleChange = date => {
 
     let data = date.toLocaleDateString();
-    console.log('date ', data);
     this.setState({
       startDate: date,
       servicos: this.filterServicos(date)
@@ -108,6 +107,7 @@ export default class Servicos extends Component {
           onChange={this.handleChange}
           dateFormat="d/MM/yyyy"
         />
+        <br />
         <div> { error } </div>
           <div>
             <Table>
